@@ -35,25 +35,8 @@ export default function App() {
         <Welcome name={usr.name} profile={usr.profile} />
       ))}
 
-      {/* <Msg name="Harish" />
-      <Msg name="Kavi Kumar" />
-      <Msg name="Sankavi" /> */}
-
       {/* {5*6} */}
       {/* Task Use map to loop Welcome component */}
-
-      {/* <Welcome
-        profile="https://www.whatsappprofiledpimages.com/wp-content/uploads/2021/08/Profile-Photo-Wallpaper.jpg"
-        name="Keerthana"
-      />
-      <Welcome
-        name="Tamil Selvan"
-        profile="https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGFic3RyYWN0JTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-      />
-      <Welcome
-        profile="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        name="Aaron"
-      /> */}
     </div>
   );
 }
@@ -113,3 +96,5 @@ function Welcome({ name, profile }) {
 // JSX -> Javascript XML
 
 // {} template syntax
+
+// ctrl + c
