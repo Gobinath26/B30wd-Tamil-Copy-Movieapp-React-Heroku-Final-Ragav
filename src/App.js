@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 
 // App -> component
@@ -37,9 +38,43 @@ export default function App() {
 
       {/* {5*6} */}
       {/* Task Use map to loop Welcome component */}
+      <Counter />
     </div>
   );
 }
+
+// camel case  onClick -> C must be capital
+// hooks - function - 'use'
+// useState -> To inform react the value is update
+function Counter() {
+  // let like = 4;
+  const [like, setLike] = useState(0);
+  // const [state, setState] = useState(Intial value)
+  // state -> Current value
+  // setState -> helps to update state
+  return (
+    <div>
+      <button onClick={() => setLike(like + 1)}>👍 {like}</button>
+    </div>
+  );
+}
+
+// Task
+// 1. Dislike -> onClicked dislike must increase
+// 2. Listing Movies
+// Github link & Netlify
+
+// 1. Thupakki
+// 2. Pushpa
+// 3. Mankatha
+// 4. Hangover
+// 5. Avengers
+
+// Movies
+// 1. Poster
+// 2. Name
+// 3. Summary
+// 4. Rating
 
 // Array of strings -> Array of Component | Transofmation - map
 
