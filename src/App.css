@@ -1,6 +1,6 @@
 .App {
   font-family: sans-serif;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .welcome {
@@ -14,4 +14,41 @@
   /* Zoom in */
   object-fit: cover;
   border-radius: 50%;
+}
+
+.movie-poster {
+  width: 340px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.movie-container {
+  /* background: orange; */
+  width: 340px;
+}
+
+.movie-specs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-name {
+  font-size: 24px;
+  margin: 0;
+}
+
+.movie-summary {
+  margin-top: 0;
+}
+
+.movie-rating {
+  font-size: 18px;
+}
+
+.movie-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
