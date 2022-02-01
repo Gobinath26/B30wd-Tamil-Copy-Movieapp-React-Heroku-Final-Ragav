@@ -124,19 +124,89 @@ export default function App() {
           />
         ))}
       </div>
+      <AddColor />
     </div>
   );
 }
 
+function AddColor() {
+  const [color, setColor] = useState("pink");
+  const styles = {
+    background: color,
+  };
+
+  // const colorList = ;
+
+  const [colorList, setColorList] = useState([
+    "crimson",
+    "orange",
+    "skyblue",
+    "red",
+  ]);
+
+  // Todo - Capture - Typing event
+  // event.target.value - typed word
+  // setColor - informs react color has changed
+  return (
+    <div>
+      <input
+        value={color}
+        style={styles}
+        onChange={(event) => setColor(event.target.value)}
+        placeholder="Enter a color"
+      />
+      {/* copy the colorList and add new color to it */}
+      <button onClick={() => setColorList([...colorList, color])}>
+        Add Color
+      </button>
+
+      {colorList.map((clr) => (
+        <ColorBox color={clr} />
+      ))}
+      {/* <ColorBox color="red" />
+      <ColorBox color="orange" />
+      <ColorBox color="teal" /> */}
+    </div>
+  );
+}
+
+function ColorBox({ color }) {
+  const styles = {
+    backgroundColor: color,
+    height: "25px",
+    width: "200px",
+    marginTop: "10px",
+  };
+  return <div style={styles}></div>;
+}
+
+// Task
+// > 8.5 green
+// <= 8.5 red
+
+// Task
+// 1. New Movie - AddMovie
+// 2. Warning: Each child in a list should have a unique "key" prop - Why?
+
 function Movie({ name, poster, rating, summary }) {
+  // Normal JS
+  // Conditional styling
+  const styles = {
+    // backgroundColor: "green",
+    color: rating > 8.5 ? "green" : "red",
+  };
+  // Inside return only jsx
   return (
     <div className="movie-container">
       <img src={poster} alt={name} className="movie-poster" />
       <div className="movie-specs">
         <h2 className="movie-name">{name}</h2>
-        <p className="movie-rating">⭐ {rating}</p>
+        <p style={styles} className="movie-rating">
+          ⭐ {rating}
+        </p>
       </div>
       <p className="movie-summary">{summary}</p>
+      <Counter />
     </div>
   );
 }
@@ -147,12 +217,18 @@ function Movie({ name, poster, rating, summary }) {
 function Counter() {
   // let like = 4;
   const [like, setLike] = useState(0);
+  const [disLike, setDisLike] = useState(0);
   // const [state, setState] = useState(Intial value)
   // state -> Current value
   // setState -> helps to update state
   return (
-    <div>
-      <button onClick={() => setLike(like + 1)}>👍 {like}</button>
+    <div className="counter-container">
+      <button className="like-dislike" onClick={() => setLike(like + 1)}>
+        👍 {like}
+      </button>
+      <button className="like-dislike" onClick={() => setDisLike(disLike + 1)}>
+        👎 {disLike}
+      </button>
     </div>
   );
 }

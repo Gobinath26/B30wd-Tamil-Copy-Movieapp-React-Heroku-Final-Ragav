@@ -52,3 +52,12 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+.counter-container {
+  display: flex;
+  gap: 10px;
+}
+
+.like-dislike {
+  font-size: 20px;
+}
