@@ -1,6 +1,5 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,9 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import "./App.css";
+import { Counter } from "./Counter";
+import { double } from "./Msg"; // 1. Named imports & exports - latest
 
 // App -> component
 // Declaration
+
+console.log(double(4));
+
+// 2. Default imports & exports
 export default function App() {
   const names = ["Harish", "Kavi Kumar", "Sankavi", "Vignesh", "Jerline mary"];
   // const good = "Keerthana !!!"
@@ -108,6 +113,7 @@ export default function App() {
 
   return (
     <div className="App">
+      {/* <Msg /> */}
       <div className="add-movie-form">
         <TextField
           onChange={(event) => setName(event.target.value)}
@@ -159,64 +165,10 @@ export default function App() {
           />
         ))}
       </div>
+
       {/* <AddColor /> */}
     </div>
   );
-}
-
-function AddColor() {
-  const [color, setColor] = useState("pink");
-  const styles = {
-    background: color,
-  };
-
-  // const colorList = ;
-
-  const [colorList, setColorList] = useState([
-    "crimson",
-    "orange",
-    "skyblue",
-    "red",
-  ]);
-
-  // Todo - Capture - Typing event
-  // event.target.value - typed word
-  // setColor - informs react color has changed
-  return (
-    <div>
-      <input
-        value={color}
-        style={styles}
-        onChange={(event) => setColor(event.target.value)}
-        placeholder="Enter a color"
-      />
-      {/* copy the colorList and add new color to it */}
-      <button onClick={() => setColorList([...colorList, color])}>
-        Add Color
-      </button>
-
-      {colorList.map((clr) => (
-        <ColorBox color={clr} />
-      ))}
-      {/* <ColorBox color="red" />
-      <ColorBox color="orange" />
-      <ColorBox color="teal" /> */}
-    </div>
-  );
-}
-
-// ctrl+shift+p
-// ctrl + z  undo , ctrl + y redo
-// ctrl + d
-
-function ColorBox({ color }) {
-  const styles = {
-    backgroundColor: color,
-    height: "25px",
-    width: "200px",
-    marginTop: "10px",
-  };
-  return <div style={styles}></div>;
 }
 
 // Task
@@ -274,140 +226,14 @@ function Movie({ name, poster, rating, summary }) {
   );
 }
 
-// camel case  onClick -> C must be capital
-// hooks - function - 'use'
-// useState -> To inform react the value is update
-function Counter() {
-  // let like = 4;
-  const [like, setLike] = useState(0);
-  const [disLike, setDisLike] = useState(0);
-  // const [state, setState] = useState(Intial value)
-  // state -> Current value
-  // setState -> helps to update state
-  return (
-    <div className="counter-container">
-      <IconButton
-        className="like-dislike"
-        onClick={() => setLike(like + 1)}
-        aria-label="like button"
-        color="primary"
-      >
-        <Badge badgeContent={like} color="primary">
-          👍
-        </Badge>
-      </IconButton>
+// Multi page - advantage
+// 1. Performance
+// 2. Ease of access - organized
+// 3. Sharing
 
-      <IconButton
-        className="like-dislike"
-        onClick={() => setDisLike(disLike + 1)}
-        aria-label="dislike button"
-        color="error"
-      >
-        <Badge badgeContent={disLike} color="error">
-          👎
-        </Badge>
-      </IconButton>
-    </div>
-  );
-}
+// SPA
+// 1. No refresh
+// 2. Smooth experience
 
-function Welcome({ name, profile }) {
-  return (
-    <div className="welcome">
-      <img className="user-profile-pic" src={profile} alt="profile pic" />
-      <h1>Hello, {name}😁🤩🤸‍♂️🎊🎉</h1>
-    </div>
-  );
-}
-
-// Task
-// 1. Dislike -> onClicked dislike must increase
-// 2. Listing Movies
-// Github link & Netlify
-
-// 1. Thupakki
-// 2. Pushpa
-// 3. Mankatha
-// 4. Hangover
-// 5. Avengers
-
-// Movies
-// 1. Poster
-// 2. Name
-// 3. Summary
-// 4. Rating
-
-// Array of strings -> Array of Component | Transofmation - map
-
-function Msg({ name }) {
-  return (
-    <div className="welcome">
-      <h1>Hello, {name}😁🤩🤸‍♂️🎊🎉</h1>
-    </div>
-  );
-}
-
-// props -> properties
-// Welcome
-// Persistence
-
-// function Welcome(props) {
-//   // const name = "Aravind";
-//   // console.log(props);
-//   const {name} = props;
-//   return (
-//     <div className="welcome">
-//       <h1>Hello, {name}😁🤩🤸‍♂️🎊🎉</h1>
-//     </div>
-//   );
-// }
-
-// function Welcome() {
-//   const name = "Aravind";
-//   return (
-//     <div className="welcome">
-//       <h1>Hello, {name}😁🤩🤸‍♂️🎊🎉</h1>
-//     </div>
-//   );
-// }
-
-// Component
-// 1. First letter must be capital
-// 2. It should return one jsx element
-
-// win + . -> emoji
-
-// This not html
-// className
-// jsx -> js
-// JSX -> Javascript XML
-
-// {} template syntax
-
-// ctrl + c
-
-// let x = 100;
-// // ...
-// // 1000 lines codes
-// console.log(x);
-
-// Immutablity
-// const x = 100;
-// // ...
-// // 1000 lines codes
-// console.log(x);
-
-// const y = [3, 4, 5];
-// // y.push(7);
-// // [3, 4, 5, 7]
-// // ... 1000 lines code
-// const z = [...y, 7];
-// console.log(y, z);
-
-// const like  =10;
-// // like++;
-// const like1  = like + 1;
-
-// Task
-// 1. Buttons & input - Convert to material
-// 2. Toggle description (css display) - none -> block (Conditional styling)
+// React router dom
+// Condition rendering
