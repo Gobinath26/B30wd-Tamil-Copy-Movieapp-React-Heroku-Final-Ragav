@@ -1,3 +1,12 @@
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Badge from "@mui/material/Badge";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import "./App.css";
 
@@ -25,7 +34,7 @@ export default function App() {
     },
   ];
 
-  const movieList = [
+  const INITIAL_MOVIE_LIST = [
     {
       name: "RRR",
       poster:
@@ -90,33 +99,59 @@ export default function App() {
     },
   ];
 
+  const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
+
+  const [name, setName] = useState("");
+  const [poster, setPoster] = useState("");
+  const [rating, setRating] = useState("");
+  const [summary, setSummary] = useState("");
+
   return (
     <div className="App">
-      {/* Array of strings -> Array of Component | Transofmation - map */}
-      {/* {names.map((nm) => (
-        <Msg name={nm} />
-      ))} */}
-
-      {/* Array of Objects -> Array of Component | Transofmation - map */}
-      {/* {users.map((usr) => (
-        <Welcome name={usr.name} profile={usr.profile} />
-      ))} */}
-
-      {/* {5*6} */}
-      {/* Task Use map to loop Welcome component */}
-      {/* <Counter /> */}
-
-      {/* {movieList.map((mv) => (
-        <Movie
-          name={mv.name}
-          poster={mv.poster}
-          rating={mv.rating}
-          summary={mv.summary}
+      <div className="add-movie-form">
+        <TextField
+          onChange={(event) => setName(event.target.value)}
+          label="Name"
+          variant="outlined"
         />
-      ))} */}
+        {/* <input /> */}
+        <TextField
+          type="text"
+          label="Poster"
+          onChange={(event) => setPoster(event.target.value)}
+        />
+        <TextField
+          type="text"
+          label="Rating"
+          onChange={(event) => setRating(event.target.value)}
+        />
+        <TextField
+          type="text"
+          label="Summary"
+          onChange={(event) => setSummary(event.target.value)}
+        />
+        {/* copy the movieList and add new movie to it */}
+        {/* <button></button> */}
+        <Button
+          onClick={() => {
+            const newMovie = {
+              name: name,
+              poster: poster,
+              rating: rating,
+              summary: summary,
+            };
+
+            setMovieList([...movieList, newMovie]);
+          }}
+          variant="contained"
+        >
+          Add movie
+        </Button>
+      </div>
       <div className="movie-list">
-        {movieList.map(({ name, poster, rating, summary }) => (
+        {movieList.map(({ name, poster, rating, summary }, index) => (
           <Movie
+            key={index}
             name={name}
             poster={poster}
             rating={rating}
@@ -124,7 +159,7 @@ export default function App() {
           />
         ))}
       </div>
-      <AddColor />
+      {/* <AddColor /> */}
     </div>
   );
 }
@@ -170,6 +205,10 @@ function AddColor() {
   );
 }
 
+// ctrl+shift+p
+// ctrl + z  undo , ctrl + y redo
+// ctrl + d
+
 function ColorBox({ color }) {
   const styles = {
     backgroundColor: color,
@@ -196,18 +235,42 @@ function Movie({ name, poster, rating, summary }) {
     color: rating > 8.5 ? "green" : "red",
   };
   // Inside return only jsx
+  //  none -> block (Conditional styling)
+  const [show, setShow] = useState(true);
+
+  // Conditional styling
+  // const summaryStyles = {
+  //   display: show ? "block" : "none",
+  // };
+
   return (
-    <div className="movie-container">
+    <Card className="movie-container">
       <img src={poster} alt={name} className="movie-poster" />
-      <div className="movie-specs">
-        <h2 className="movie-name">{name}</h2>
-        <p style={styles} className="movie-rating">
-          ⭐ {rating}
-        </p>
-      </div>
-      <p className="movie-summary">{summary}</p>
-      <Counter />
-    </div>
+      <CardContent>
+        <div className="movie-specs">
+          <h2 className="movie-name">
+            {name}
+            <IconButton
+              color="primary"
+              onClick={() => setShow(!show)}
+              aria-label="Toggle summary"
+            >
+              {/* Conditional rendering*/}
+              {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </h2>
+          <p style={styles} className="movie-rating">
+            ⭐ {rating}
+          </p>
+        </div>
+
+        {/* Conditional rendering - prefered*/}
+        {show ? <p className="movie-summary">{summary}</p> : ""}
+      </CardContent>
+      <CardActions>
+        <Counter />
+      </CardActions>
+    </Card>
   );
 }
 
@@ -223,12 +286,27 @@ function Counter() {
   // setState -> helps to update state
   return (
     <div className="counter-container">
-      <button className="like-dislike" onClick={() => setLike(like + 1)}>
-        👍 {like}
-      </button>
-      <button className="like-dislike" onClick={() => setDisLike(disLike + 1)}>
-        👎 {disLike}
-      </button>
+      <IconButton
+        className="like-dislike"
+        onClick={() => setLike(like + 1)}
+        aria-label="like button"
+        color="primary"
+      >
+        <Badge badgeContent={like} color="primary">
+          👍
+        </Badge>
+      </IconButton>
+
+      <IconButton
+        className="like-dislike"
+        onClick={() => setDisLike(disLike + 1)}
+        aria-label="dislike button"
+        color="error"
+      >
+        <Badge badgeContent={disLike} color="error">
+          👎
+        </Badge>
+      </IconButton>
     </div>
   );
 }
@@ -329,3 +407,7 @@ function Msg({ name }) {
 // const like  =10;
 // // like++;
 // const like1  = like + 1;
+
+// Task
+// 1. Buttons & input - Convert to material
+// 2. Toggle description (css display) - none -> block (Conditional styling)

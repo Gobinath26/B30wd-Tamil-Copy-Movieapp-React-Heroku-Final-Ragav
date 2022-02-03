@@ -25,6 +25,7 @@
 .movie-container {
   /* background: orange; */
   width: 340px;
+  height: min-content;
 }
 
 .movie-specs {
@@ -60,4 +61,11 @@
 
 .like-dislike {
   font-size: 20px;
+}
+
+.add-movie-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px;
 }
