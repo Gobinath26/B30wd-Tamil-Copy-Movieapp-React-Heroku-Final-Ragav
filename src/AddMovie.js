@@ -1,12 +1,15 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export function AddMovie({ movieList, setMovieList }) {
   const [name, setName] = useState("");
   const [poster, setPoster] = useState("");
   const [rating, setRating] = useState("");
   const [summary, setSummary] = useState("");
+  const [trailer, setTrailer] = useState("");
+  const history = useHistory();
   return (
     <div className="add-movie-form">
       <TextField
@@ -30,6 +33,11 @@ export function AddMovie({ movieList, setMovieList }) {
         label="Summary"
         onChange={(event) => setSummary(event.target.value)}
       />
+      <TextField
+        type="text"
+        label="Trailer"
+        onChange={(event) => setTrailer(event.target.value)}
+      />
       {/* copy the movieList and add new movie to it */}
       {/* <button></button> */}
       <Button
@@ -39,9 +47,11 @@ export function AddMovie({ movieList, setMovieList }) {
             poster: poster,
             rating: rating,
             summary: summary,
+            trailer: trailer,
           };
 
           setMovieList([...movieList, newMovie]);
+          history.push("/movies");
         }}
         variant="contained"
       >

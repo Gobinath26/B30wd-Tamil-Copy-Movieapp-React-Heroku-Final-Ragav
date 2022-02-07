@@ -56,6 +56,9 @@ export default function App() {
           <Link to="/tic-tac-toe">Tic Tac Toe</Link>
         </li>
         <li>
+          <Link to="/movies/add">Add Movies</Link>
+        </li>
+        <li>
           <Link to="/">Home</Link>
         </li>
       </ul>
@@ -68,6 +71,9 @@ export default function App() {
           <Redirect to="/movies" />
         </Route>
         {/* /movies/add */}
+        {/* Task
+Edit movie
+/movies/edit/:id */}
 
         <Route path="/movies/add">
           <AddMovie movieList={movieList} setMovieList={setMovieList} />

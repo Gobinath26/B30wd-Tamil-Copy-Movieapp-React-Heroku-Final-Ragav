@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
-
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import Button from "@mui/material/Button";
+import { useHistory, useParams } from "react-router-dom";
 export function MovieDetails({ movieList }) {
   const { id } = useParams(); // extracting parameter from the URL
 
   console.log(id, movieList);
   const movie = movieList[id];
+  const history = useHistory();
   return (
     <div>
       {/* copy embed code */}
@@ -23,6 +25,13 @@ export function MovieDetails({ movieList }) {
           <p className="movie-rating">⭐ {movie.rating}</p>
         </div>
         <p className="movie-summary">{movie.summary}</p>
+        <Button
+          variant="contained"
+          onClick={() => history.goBack()}
+          startIcon={<ArrowBackIosIcon />}
+        >
+          Back
+        </Button>
       </div>
     </div>
   );
