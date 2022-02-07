@@ -1,12 +1,12 @@
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { Link, Redirect, Route, Switch, useParams } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 // App -> component
 // Declaration
 import { AddColor } from "./AddColor";
+import { AddMovie } from "./AddMovie";
 import "./App.css";
 import { INITIAL_MOVIE_LIST } from "./INITIAL_MOVIE_LIST";
+import { MovieDetails } from "./MovieDetails";
 import { MovieList } from "./MovieList";
 import { double } from "./Msg"; // 1. Named imports & exports - latest
 import { Msg } from "./Msg.1";
@@ -37,13 +37,7 @@ export default function App() {
       name: "Aaron",
     },
   ];
-
   const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
-
-  const [name, setName] = useState("");
-  const [poster, setPoster] = useState("");
-  const [rating, setRating] = useState("");
-  const [summary, setSummary] = useState("");
 
   // /movies - add movie & movie list
   // /color-game - AddColor
@@ -74,51 +68,15 @@ export default function App() {
           <Redirect to="/movies" />
         </Route>
         {/* /movies/add */}
+
+        <Route path="/movies/add">
+          <AddMovie movieList={movieList} setMovieList={setMovieList} />
+        </Route>
         {/* : -> makes id a variable */}
         <Route path="/movies/:id">
           <MovieDetails movieList={movieList} />
         </Route>
         <Route path="/movies">
-          <div className="add-movie-form">
-            <TextField
-              onChange={(event) => setName(event.target.value)}
-              label="Name"
-              variant="outlined"
-            />
-            {/* <input /> */}
-            <TextField
-              type="text"
-              label="Poster"
-              onChange={(event) => setPoster(event.target.value)}
-            />
-            <TextField
-              type="text"
-              label="Rating"
-              onChange={(event) => setRating(event.target.value)}
-            />
-            <TextField
-              type="text"
-              label="Summary"
-              onChange={(event) => setSummary(event.target.value)}
-            />
-            {/* copy the movieList and add new movie to it */}
-            {/* <button></button> */}
-            <Button
-              onClick={() => {
-                const newMovie = {
-                  name: name,
-                  poster: poster,
-                  rating: rating,
-                  summary: summary,
-                };
-
-                setMovieList([...movieList, newMovie]);
-              }}
-              variant="contained"
-            >
-              Add movie
-            </Button>
-          </div>
           <MovieList movieList={movieList} setMovieList={setMovieList} />
         </Route>
         <Route path="/color-game">
@@ -136,34 +94,6 @@ export default function App() {
       {/* <Msg /> */}
 
       {/* <AddColor /> */}
-    </div>
-  );
-}
-
-function MovieDetails({ movieList }) {
-  const { id } = useParams(); // extracting parameter from the URL
-
-  console.log(id, movieList);
-  const movie = movieList[id];
-  return (
-    <div>
-      {/* copy embed code */}
-      <iframe
-        width="100%"
-        height="650"
-        src={movie.trailer}
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-      <div className="movie-detail-container">
-        <div className="movie-specs">
-          <h3 className="movie-name">{movie.name}</h3>
-          <p className="movie-rating">⭐ {movie.rating}</p>
-        </div>
-        <p className="movie-summary">{movie.summary}</p>
-      </div>
     </div>
   );
 }
