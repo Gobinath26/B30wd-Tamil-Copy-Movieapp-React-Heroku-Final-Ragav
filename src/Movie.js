@@ -15,7 +15,7 @@ import { Counter } from "./Counter";
 // Task
 // 1. New Movie - AddMovie
 // 2. Warning: Each child in a list should have a unique "key" prop - Why?
-export function Movie({ name, poster, rating, summary, deleteButton }) {
+export function Movie({ name, poster, rating, summary, deleteButton, id }) {
   // Normal JS
   // Conditional styling
   const styles = {
@@ -49,7 +49,7 @@ export function Movie({ name, poster, rating, summary, deleteButton }) {
 
             <IconButton
               color="primary"
-              onClick={() => history.push("/color-game")}
+              onClick={() => history.push(`/movies/${id}`)}
               aria-label="Toggle summary"
             >
               <InfoIcon />

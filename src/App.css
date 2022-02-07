@@ -105,3 +105,8 @@ body {
   font-size: 54px;
   margin: 0;
 }
+
+.movie-detail-container {
+  max-width: 900px;
+  padding: 24px;
+}

@@ -26,6 +26,7 @@ export function MovieList({ movieList, setMovieList }) {
               <DeleteIcon />
             </IconButton>
           }
+          id={index}
         />
       ))}
     </div>

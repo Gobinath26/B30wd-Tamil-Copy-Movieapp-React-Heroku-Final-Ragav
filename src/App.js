@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { Link, Redirect, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch, useParams } from "react-router-dom";
 // App -> component
 // Declaration
 import { AddColor } from "./AddColor";
@@ -73,6 +73,11 @@ export default function App() {
         <Route path="/films">
           <Redirect to="/movies" />
         </Route>
+        {/* /movies/add */}
+        {/* : -> makes id a variable */}
+        <Route path="/movies/:id">
+          <MovieDetails movieList={movieList} />
+        </Route>
         <Route path="/movies">
           <div className="add-movie-form">
             <TextField
@@ -131,6 +136,34 @@ export default function App() {
       {/* <Msg /> */}
 
       {/* <AddColor /> */}
+    </div>
+  );
+}
+
+function MovieDetails({ movieList }) {
+  const { id } = useParams(); // extracting parameter from the URL
+
+  console.log(id, movieList);
+  const movie = movieList[id];
+  return (
+    <div>
+      {/* copy embed code */}
+      <iframe
+        width="100%"
+        height="650"
+        src={movie.trailer}
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+      <div className="movie-detail-container">
+        <div className="movie-specs">
+          <h3 className="movie-name">{movie.name}</h3>
+          <p className="movie-rating">⭐ {movie.rating}</p>
+        </div>
+        <p className="movie-summary">{movie.summary}</p>
+      </div>
     </div>
   );
 }
