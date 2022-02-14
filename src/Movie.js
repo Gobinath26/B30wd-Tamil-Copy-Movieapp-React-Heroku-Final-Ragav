@@ -15,7 +15,15 @@ import { Counter } from "./Counter";
 // Task
 // 1. New Movie - AddMovie
 // 2. Warning: Each child in a list should have a unique "key" prop - Why?
-export function Movie({ name, poster, rating, summary, deleteButton, id }) {
+export function Movie({
+  name,
+  poster,
+  rating,
+  summary,
+  deleteButton,
+  id,
+  editButton,
+}) {
   // Normal JS
   // Conditional styling
   const styles = {
@@ -64,7 +72,7 @@ export function Movie({ name, poster, rating, summary, deleteButton, id }) {
         {show ? <p className="movie-summary">{summary}</p> : ""}
       </CardContent>
       <CardActions>
-        <Counter /> {deleteButton}
+        <Counter /> {deleteButton} {editButton}
       </CardActions>
     </Card>
   );

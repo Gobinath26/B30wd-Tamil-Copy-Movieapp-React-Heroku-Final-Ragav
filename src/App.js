@@ -1,10 +1,14 @@
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
-import { Link, Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 // App -> component
 // Declaration
 import { AddColor } from "./AddColor";
 import { AddMovie } from "./AddMovie";
 import "./App.css";
+import { EditMovie } from "./EditMovie";
 import { INITIAL_MOVIE_LIST } from "./INITIAL_MOVIE_LIST";
 import { MovieDetails } from "./MovieDetails";
 import { MovieList } from "./MovieList";
@@ -43,63 +47,79 @@ export default function App() {
   // /color-game - AddColor
   // / -> Welcome to the movie app
 
+  // 1. Creating - createContext
+  // 2. Publisher - provider - context.Provider
+  // 3. Subscriber - useContext - useContext(context)
+  const history = useHistory();
   return (
     <div className="App">
-      <ul>
-        <li>
-          <Link to="/movies">Movies</Link>
-        </li>
-        <li>
-          <Link to="/color-game">Color game</Link>
-        </li>
-        <li>
-          <Link to="/tic-tac-toe">Tic Tac Toe</Link>
-        </li>
-        <li>
-          <Link to="/movies/add">Add Movies</Link>
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-      </ul>
-      {/* old path -> /films    new path -> /movies */}
-      <Switch>
-        <Route exact path="/">
-          <Msg />
-        </Route>
-        <Route path="/films">
-          <Redirect to="/movies" />
-        </Route>
-        {/* /movies/add */}
-        {/* Task
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick={() => history.push("/")}>
+            Home
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/movies")}>
+            Movies
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/color-game")}>
+            Color game
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/tic-tac-toe")}>
+            Tic Tac Toe
+          </Button>
+          <Button color="inherit" onClick={() => history.push("/movies/add")}>
+            Add Movies
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <div className="route-container">
+        {/* old path -> /films    new path -> /movies */}
+        <Switch>
+          <Route exact path="/">
+            <Msg />
+          </Route>
+          <Route path="/films">
+            <Redirect to="/movies" />
+          </Route>
+          {/* /movies/add */}
+          {/* Task
 Edit movie
 /movies/edit/:id */}
 
-        <Route path="/movies/add">
-          <AddMovie movieList={movieList} setMovieList={setMovieList} />
-        </Route>
-        {/* : -> makes id a variable */}
-        <Route path="/movies/:id">
-          <MovieDetails movieList={movieList} />
-        </Route>
-        <Route path="/movies">
-          <MovieList movieList={movieList} setMovieList={setMovieList} />
-        </Route>
-        <Route path="/color-game">
-          <AddColor />
-        </Route>
-        <Route path="/tic-tac-toe">
-          <TicTacToe />
-        </Route>
+          <Route path="/movies/add">
+            <AddMovie movieList={movieList} setMovieList={setMovieList} />
+          </Route>
+          <Route path="/movies/edit/:id">
+            <EditMovie movieList={movieList} setMovieList={setMovieList} />
+          </Route>
+          {/* : -> makes id a variable */}
+          <Route path="/movies/:id">
+            <MovieDetails movieList={movieList} />
+          </Route>
+          <Route path="/movies">
+            <MovieList movieList={movieList} setMovieList={setMovieList} />
+          </Route>
+          <Route path="/color-game">
+            <AddColor />
+          </Route>
+          <Route path="/tic-tac-toe">
+            <TicTacToe />
+          </Route>
 
-        <Route path="**">
-          <NotFound />
-        </Route>
-      </Switch>
+          <Route path="**">
+            <NotFound />
+          </Route>
+        </Switch>
+      </div>
 
       {/* <Msg /> */}
 
       {/* <AddColor /> */}
     </div>
   );
+}
+
+function Hi() {
+  return <div>Hi</div>;
 }

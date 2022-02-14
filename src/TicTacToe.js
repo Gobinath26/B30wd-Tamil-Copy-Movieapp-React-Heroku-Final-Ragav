@@ -84,3 +84,6 @@ export function TicTacToe() {
     </div>
   );
 }
+// Flow of Class
+// Total 2hr 30mins session = 2hours topic & 30mins doubt clarification on today's topic
+// First 10mins previous class doubts
