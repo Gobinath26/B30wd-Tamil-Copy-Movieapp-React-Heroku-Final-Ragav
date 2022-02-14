@@ -1,5 +1,9 @@
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
@@ -51,72 +55,101 @@ export default function App() {
   // 2. Publisher - provider - context.Provider
   // 3. Subscriber - useContext - useContext(context)
   const history = useHistory();
+  const [mode, setMode] = useState("dark");
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
   return (
-    <div className="App">
-      <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit" onClick={() => history.push("/")}>
-            Home
-          </Button>
-          <Button color="inherit" onClick={() => history.push("/movies")}>
-            Movies
-          </Button>
-          <Button color="inherit" onClick={() => history.push("/color-game")}>
-            Color game
-          </Button>
-          <Button color="inherit" onClick={() => history.push("/tic-tac-toe")}>
-            Tic Tac Toe
-          </Button>
-          <Button color="inherit" onClick={() => history.push("/movies/add")}>
-            Add Movies
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <ThemeProvider theme={theme}>
+      <Paper style={{ borderRadius: "0px", minHeight: "100vh" }} elevation={4}>
+        <div className="App">
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit" onClick={() => history.push("/")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => history.push("/movies")}>
+                Movies
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => history.push("/color-game")}
+              >
+                Color game
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => history.push("/tic-tac-toe")}
+              >
+                Tic Tac Toe
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => history.push("/movies/add")}
+              >
+                Add Movies
+              </Button>
+              <Button
+                color="inherit"
+                style={{ marginLeft: "auto" }}
+                startIcon={
+                  mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />
+                }
+                onClick={() => setMode(mode === "light" ? "dark" : "light")}
+              >
+                {mode === "light" ? "dark" : "light"} mode
+              </Button>
+            </Toolbar>
+          </AppBar>
 
-      <div className="route-container">
-        {/* old path -> /films    new path -> /movies */}
-        <Switch>
-          <Route exact path="/">
-            <Msg />
-          </Route>
-          <Route path="/films">
-            <Redirect to="/movies" />
-          </Route>
-          {/* /movies/add */}
-          {/* Task
+          <div className="route-container">
+            {/* old path -> /films    new path -> /movies */}
+            <Switch>
+              <Route exact path="/">
+                <Msg />
+              </Route>
+              <Route path="/films">
+                <Redirect to="/movies" />
+              </Route>
+              {/* /movies/add */}
+              {/* Task
 Edit movie
 /movies/edit/:id */}
 
-          <Route path="/movies/add">
-            <AddMovie movieList={movieList} setMovieList={setMovieList} />
-          </Route>
-          <Route path="/movies/edit/:id">
-            <EditMovie movieList={movieList} setMovieList={setMovieList} />
-          </Route>
-          {/* : -> makes id a variable */}
-          <Route path="/movies/:id">
-            <MovieDetails movieList={movieList} />
-          </Route>
-          <Route path="/movies">
-            <MovieList movieList={movieList} setMovieList={setMovieList} />
-          </Route>
-          <Route path="/color-game">
-            <AddColor />
-          </Route>
-          <Route path="/tic-tac-toe">
-            <TicTacToe />
-          </Route>
+              <Route path="/movies/add">
+                <AddMovie movieList={movieList} setMovieList={setMovieList} />
+              </Route>
+              <Route path="/movies/edit/:id">
+                <EditMovie movieList={movieList} setMovieList={setMovieList} />
+              </Route>
+              {/* : -> makes id a variable */}
+              <Route path="/movies/:id">
+                <MovieDetails movieList={movieList} />
+              </Route>
+              <Route path="/movies">
+                <MovieList movieList={movieList} setMovieList={setMovieList} />
+              </Route>
+              <Route path="/color-game">
+                <AddColor />
+              </Route>
+              <Route path="/tic-tac-toe">
+                <TicTacToe />
+              </Route>
 
-          <Route path="**">
-            <NotFound />
-          </Route>
-        </Switch>
-      </div>
+              <Route path="**">
+                <NotFound />
+              </Route>
+            </Switch>
+          </div>
 
-      {/* <Msg /> */}
+          {/* <Msg /> */}
 
-      {/* <AddColor /> */}
-    </div>
+          {/* <AddColor /> */}
+        </div>
+      </Paper>
+    </ThemeProvider>
   );
 }
 

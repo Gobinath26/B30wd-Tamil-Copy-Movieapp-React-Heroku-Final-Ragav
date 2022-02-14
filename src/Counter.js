@@ -1,6 +1,6 @@
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // camel case  onClick -> C must be capital
 // hooks - function - 'use'
@@ -12,6 +12,10 @@ export function Counter() {
   // const [state, setState] = useState(Intial value)
   // state -> Current value
   // setState -> helps to update state
+  useEffect(() => {
+    console.log("Like is update", like);
+  }, [like, disLike]);
+
   return (
     <div className="counter-container">
       <IconButton

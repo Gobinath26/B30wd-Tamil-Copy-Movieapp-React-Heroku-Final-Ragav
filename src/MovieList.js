@@ -17,6 +17,7 @@ export function MovieList({ movieList, setMovieList }) {
           summary={summary}
           deleteButton={
             <IconButton
+              style={{ marginLeft: "auto" }}
               onClick={() => {
                 console.log(index);
                 const copyMovieList = [...movieList];
