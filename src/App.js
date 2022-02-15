@@ -126,10 +126,10 @@ Edit movie
               </Route>
               {/* : -> makes id a variable */}
               <Route path="/movies/:id">
-                <MovieDetails movieList={movieList} />
+                <MovieDetails />
               </Route>
               <Route path="/movies">
-                <MovieList movieList={movieList} setMovieList={setMovieList} />
+                <MovieList />
               </Route>
               <Route path="/color-game">
                 <AddColor />

@@ -16,11 +16,14 @@ export function Counter() {
     console.log("Like is update", like);
   }, [like, disLike]);
 
+  const incrementLike = () => setLike(like + 1);
+  const incrementDisLike = () => setDisLike(disLike + 1);
+
   return (
     <div className="counter-container">
       <IconButton
         className="like-dislike"
-        onClick={() => setLike(like + 1)}
+        onClick={incrementLike}
         aria-label="like button"
         color="primary"
       >
@@ -31,7 +34,7 @@ export function Counter() {
 
       <IconButton
         className="like-dislike"
-        onClick={() => setDisLike(disLike + 1)}
+        onClick={incrementDisLike}
         aria-label="dislike button"
         color="error"
       >
