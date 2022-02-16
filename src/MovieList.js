@@ -3,9 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { API } from "./global";
 import { Movie } from "./Movie";
-
-const API = "https://my-json-server.typicode.com/ragavkumarv/fun-data";
 
 export function MovieList() {
   const history = useHistory();
@@ -49,7 +48,7 @@ export function MovieList() {
           }
           editButton={
             <IconButton
-              onClick={() => history.push(`/movies/edit/${index}`)}
+              onClick={() => history.push(`/movies/edit/${id}`)}
               aria-label="delete"
               color="secondary"
             >

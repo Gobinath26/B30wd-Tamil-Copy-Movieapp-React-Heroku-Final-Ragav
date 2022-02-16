@@ -2,17 +2,15 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { API } from "./global";
 export function MovieDetails() {
   const { id } = useParams(); // extracting parameter from the URL
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    fetch(
-      `https://my-json-server.typicode.com/ragavkumarv/fun-data/movies/${id}`,
-      {
-        method: "GET",
-      }
-    ) // promise
+    fetch(`${API}/movies/${id}`, {
+      method: "GET",
+    }) // promise
       .then((data) => data.json()) // Response object
       .then((mv) => setMovie(mv))
       .catch((err) => console.log(err));

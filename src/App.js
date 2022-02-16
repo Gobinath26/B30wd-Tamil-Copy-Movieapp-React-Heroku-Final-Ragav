@@ -119,10 +119,10 @@ Edit movie
 /movies/edit/:id */}
 
               <Route path="/movies/add">
-                <AddMovie movieList={movieList} setMovieList={setMovieList} />
+                <AddMovie />
               </Route>
               <Route path="/movies/edit/:id">
-                <EditMovie movieList={movieList} setMovieList={setMovieList} />
+                <EditMovie />
               </Route>
               {/* : -> makes id a variable */}
               <Route path="/movies/:id">
