@@ -1,7 +1,9 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { movieValidationSchema } from "./AddMovie";
 import { API } from "./global";
 
 export function EditMovie({ movieList, setMovieList }) {
@@ -27,22 +29,24 @@ export function EditMovie({ movieList, setMovieList }) {
 }
 
 function EditMovieForm({ movie }) {
-  const [name, setName] = useState(movie.name);
-  const [poster, setPoster] = useState(movie.poster);
-  const [rating, setRating] = useState(movie.rating);
-  const [summary, setSummary] = useState(movie.summary);
-  const [trailer, setTrailer] = useState(movie.trailer);
   const history = useHistory();
 
-  const editMovie = () => {
-    const updatedMovie = {
-      name: name,
-      poster: poster,
-      rating: rating,
-      summary: summary,
-      trailer: trailer,
-    };
+  const formik = useFormik({
+    initialValues: {
+      name: movie.name,
+      poster: movie.poster,
+      rating: movie.rating,
+      summary: movie.summary,
+      trailer: movie.trailer,
+    },
+    validationSchema: movieValidationSchema,
+    onSubmit: (updatedMovie) => {
+      editMovie(updatedMovie);
+    },
+  });
 
+  const editMovie = (updatedMovie) => {
+    console.log("Updated", updatedMovie);
     // 1. method must be PUT & pass id
     // 2. body - JSON data
     // 3. headers - JSON data
@@ -57,43 +61,91 @@ function EditMovieForm({ movie }) {
   };
 
   return (
-    <div className="add-movie-form">
+    <form onSubmit={formik.handleSubmit} className="add-movie-form">
       <TextField
-        value={name}
-        onChange={(event) => setName(event.target.value)}
         label="Name"
         variant="outlined"
+        id="name"
+        name="name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+        onBlur={formik.handleBlur}
+        error={formik.touched.name && formik.errors.name}
+        helperText={
+          formik.touched.name && formik.errors.name ? formik.errors.name : ""
+        }
       />
+
       {/* <input /> */}
       <TextField
-        value={poster}
         type="text"
         label="Poster"
-        onChange={(event) => setPoster(event.target.value)}
+        id="poster"
+        name="poster"
+        onChange={formik.handleChange}
+        value={formik.values.poster}
+        onBlur={formik.handleBlur}
+        error={formik.touched.poster && formik.errors.poster}
+        helperText={
+          formik.touched.poster && formik.errors.poster
+            ? formik.errors.poster
+            : ""
+        }
       />
+
       <TextField
-        value={rating}
         type="text"
         label="Rating"
-        onChange={(event) => setRating(event.target.value)}
+        id="rating"
+        name="rating"
+        onChange={formik.handleChange}
+        value={formik.values.rating}
+        onBlur={formik.handleBlur}
+        error={formik.touched.rating && formik.errors.rating}
+        helperText={
+          formik.touched.rating && formik.errors.rating
+            ? formik.errors.rating
+            : ""
+        }
       />
+
       <TextField
-        value={summary}
         type="text"
         label="Summary"
-        onChange={(event) => setSummary(event.target.value)}
+        id="summary"
+        name="summary"
+        onChange={formik.handleChange}
+        value={formik.values.summary}
+        onBlur={formik.handleBlur}
+        error={formik.touched.summary && formik.errors.summary}
+        helperText={
+          formik.touched.summary && formik.errors.summary
+            ? formik.errors.summary
+            : ""
+        }
       />
+
       <TextField
-        value={trailer}
         type="text"
         label="Trailer"
-        onChange={(event) => setTrailer(event.target.value)}
+        id="trailer"
+        name="trailer"
+        onChange={formik.handleChange}
+        value={formik.values.trailer}
+        onBlur={formik.handleBlur}
+        error={formik.touched.trailer && formik.errors.trailer}
+        helperText={
+          formik.touched.trailer && formik.errors.trailer
+            ? formik.errors.trailer
+            : ""
+        }
       />
+
       {/* copy the movieList and add new movie to it */}
       {/* <button></button> */}
-      <Button onClick={() => editMovie()} variant="contained" color="success">
+      <Button color="success" type="submit" variant="contained">
         Save
       </Button>
-    </div>
+    </form>
   );
 }

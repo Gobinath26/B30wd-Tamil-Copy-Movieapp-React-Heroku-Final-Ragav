@@ -12,6 +12,7 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { AddColor } from "./AddColor";
 import { AddMovie } from "./AddMovie";
 import "./App.css";
+import { BasicForm } from "./BasicForm";
 import { EditMovie } from "./EditMovie";
 import { INITIAL_MOVIE_LIST } from "./INITIAL_MOVIE_LIST";
 import { MovieDetails } from "./MovieDetails";
@@ -109,6 +110,7 @@ export default function App() {
             <Switch>
               <Route exact path="/">
                 <Msg />
+                <BasicForm />
               </Route>
               <Route path="/films">
                 <Redirect to="/movies" />
