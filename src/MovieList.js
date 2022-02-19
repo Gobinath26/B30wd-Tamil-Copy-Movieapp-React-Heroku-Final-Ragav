@@ -31,7 +31,7 @@ export function MovieList() {
     <div className="movie-list">
       {movieList.map(({ name, poster, rating, summary, id }, index) => (
         <Movie
-          key={index}
+          key={id}
           name={name}
           poster={poster}
           rating={rating}
